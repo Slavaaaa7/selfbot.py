@@ -293,7 +293,7 @@ class Misc:
         interval = anim[0]
         for line in anim[1:]:
             if line == '--END--':
-                await ctx.message.edit(content='huy')
+                await ctx.message.delete()
             else:
                 await ctx.message.edit(content=line)
                 await asyncio.sleep(float(interval))
