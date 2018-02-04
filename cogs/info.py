@@ -268,7 +268,6 @@ class Information:
         '''See information about the selfbot and latest changes.'''
 
         embed = discord.Embed()
-        embed.url = 'https://selfbot-py.tk'
         embed.colour = await ctx.get_dominant_color(ctx.author.avatar_url)
 
         embed.set_author(name='selfbot.py', icon_url=ctx.author.avatar_url)
@@ -298,23 +297,21 @@ class Information:
             fmt = '{d}d ' + fmt
         uptime = fmt.format(d=days, h=hours, m=minutes, s=seconds)
 
-        github = '[Click Here](https://github.com/kyb3r/selfbot.py/)'
-        server = '[Click Here](https://discord.gg/2B4UvKx)'
-        website = '[selfbot-py.tk](http://selfbot-py.tk/)'
+        github = '[Жмяк](https://github.com/zziger/selfbot.py/tree/rewrite)'
+        server = '[Жмяк](https://discord.gg/T7sxufR)'
 
-
-        embed.add_field(name='Author', value='kyb3r#7220')
-        embed.add_field(name='Uptime', value=uptime)
-        embed.add_field(name='Guilds', value=len(self.bot.guilds))
-        embed.add_field(name='Members', value=f'{total_unique} total\n{total_online} online')
-        embed.add_field(name='Channels', value=f'{text} text\n{voice} voice\n{dm} direct')
+	embed.title = 'Информация'
+        embed.add_field(name='Автор', value='zziger#8809')
+        embed.add_field(name='Время со старта', value=uptime)
+        embed.add_field(name='Сервера', value=len(self.bot.guilds))
+        embed.add_field(name='Участники', value=f'{total_unique} всего\n{total_online} онлайн')
+        embed.add_field(name='Каналы', value=f'{text} текстовых\n{voice} голосовых')
         memory_usage = self.bot.process.memory_full_info().uss / 1024**2
         cpu_usage = self.bot.process.cpu_percent() / psutil.cpu_count()
-        embed.add_field(name='Process', value=f'{memory_usage:.2f} MiB\n{cpu_usage:.2f}% CPU')
-        embed.add_field(name='Github', value=github)
+        embed.add_field(name='Ресурсы', value=f'{memory_usage:.2f} мб\n{cpu_usage:.2f}% CPU')
+        embed.add_field(name='GitHub', value=github)
         embed.add_field(name='Discord', value=server)
-        embed.add_field(name='Website', value=website)
-        embed.set_footer(text=f'Powered by discord.py {discord.__version__}')
+        embed.set_footer(text=f'discord.py {discord.__version__}')
         await ctx.send(embed=embed)
 
 
