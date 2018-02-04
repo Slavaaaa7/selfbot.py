@@ -311,7 +311,7 @@ class Information:
         embed.add_field(name='Ресурсы', value=f'{memory_usage:.2f} мб\n{cpu_usage:.2f}% CPU')
         embed.add_field(name='GitHub', value=github)
         embed.add_field(name='Discord', value=server)
-        embed.set_footer(text=f'discord.py {discord.__version__}')
+        embed.set_footer(text='discord.py {discord.__version__}')
         await ctx.send(embed=embed)
 
 
