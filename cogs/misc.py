@@ -292,7 +292,7 @@ class Misc:
             return await ctx.send('File not found.')
         interval = anim[0]
         for line in anim[1:]:
-            if line = '%END%':
+            if line == '--END--':
                 await ctx.message.edit(content='huy')
             else:
                 await ctx.message.edit(content=line)
