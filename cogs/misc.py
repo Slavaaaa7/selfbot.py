@@ -282,7 +282,7 @@ class Misc:
         '''Quick command to edit into a codeblock.'''
         await ctx.message.edit(content=f'```py\n{code}\n```')
 
-    @commands.group(invoke_without_command=True, aliases=['anim'])
+    @commands.group(invoke_without_command=True, aliases=['anim', 'anime'])
     async def animate(self, ctx, *, file):
         '''Animate a text file on discord!'''
         try:
@@ -292,11 +292,11 @@ class Misc:
             return await ctx.send('File not found.')
         interval = anim[0]
         for line in anim[1:]:
-          if (line = '%END%'):
-            ctx.message.delete()
-          else:
-            await ctx.message.edit(content=line)
-            await asyncio.sleep(float(interval))
+            if (line = '%END%'):
+                ctx.message.delete()
+            else:
+                await ctx.message.edit(content=line)
+                await asyncio.sleep(float(interval))
 
     @animate.command()
     async def list(self, ctx):
