@@ -582,7 +582,7 @@ class Misc:
     
     @commands.command()
     async def ascii(self, ctx, *, text):
-    	await ctx.message.delete()
+        await ctx.message.delete()
         async with ctx.session.get(f"http://artii.herokuapp.com/make?text={urllib.parse.quote_plus(text)}") as f:
             message = await f.text()
         if len('```' + message + '```') > 2000:
