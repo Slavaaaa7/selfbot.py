@@ -591,7 +591,7 @@ class Misc:
 
     @commands.command()
     async def whoisplaying(self, ctx, *, game):
-    	await ctx.message.delete()
+        await ctx.message.delete()
         message = ''
         for member in ctx.guild.members:
             if member.game != None:
