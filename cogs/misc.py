@@ -245,6 +245,15 @@ class Misc:
         return outputty
 
     @commands.command()
+    async def orange(self, ctx, *, message):
+        await ctx.message.delete()
+        em = discord.Embed(color=11897088)
+        em.description = '```fix\n'
+        em.description += message
+        em.description += '\n```'
+        await ctx.send(embed=em)
+
+    @commands.command()
     async def bf(self, ctx, slurp:str):
         '''Evaluate 'brainfuck' code (a retarded language).'''
         thruput = ctx.message.content
