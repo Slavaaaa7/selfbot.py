@@ -267,7 +267,7 @@ class Misc:
             with open(f'data/anims/{file}.txt') as a:
                 anim = a.read().splitlines()
         except:
-            return await ctx.send('File not found.')
+            return await ctx.send('Сорри, такой анимации нет.')
         interval = anim[0]
         for line in anim[1:]:
             if line == '--END--':
@@ -279,14 +279,14 @@ class Misc:
     @animate.command()
     async def list(self, ctx):
         '''Lists all possible animations'''
-        await ctx.send(f"Available animations: `{', '.join([f[:-4] for f in os.listdir('data/anims') if f.endswith('.txt')])}`")
+        await ctx.send(f"Список анимаций: `{', '.join([f[:-4] for f in os.listdir('data/anims') if f.endswith('.txt')])}`")
 
     @commands.command()
     async def virus(self, ctx, virus=None, *, user: discord.Member = None):
         '''
         Destroy someone's device with this virus command!
         '''
-        virus = virus or 'discord'
+        virus = virus or 'petooh'
         user = user or ctx.author
         with open('data/virus.txt') as f:
             animation = f.read().splitlines()
@@ -323,7 +323,7 @@ class Misc:
         file = io.BytesIO()
         Image.new('RGB', (200, 90), color.to_rgb()).save(file, format='PNG')
         file.seek(0)
-        em = discord.Embed(color=color, title=f'Showing Color: {str(color)}')
+        em = discord.Embed(color=color, title=f'Цвет: {str(color)}')
         em.set_image(url='attachment://color.png')
         await ctx.send(file=discord.File(file, 'color.png'), embed=em)
 
@@ -334,7 +334,7 @@ class Misc:
         color = await ctx.get_dominant_color(url)
         string_col = ColorNames.color_name(str(color))
         info = f'`{str(color)}`\n`{color.to_rgb()}`\n`{str(string_col)}`'
-        em = discord.Embed(color=color, title='Dominant Color', description=info)
+        em = discord.Embed(color=color, title='Основной цвет', description=info)
         em.set_thumbnail(url=url)
         file = io.BytesIO()
         Image.new('RGB', (200, 90), color.to_rgb()).save(file, format='PNG')
@@ -342,7 +342,7 @@ class Misc:
         em.set_image(url="attachment://color.png")
         await ctx.send(file=discord.File(file, 'color.png'), embed=em)
 
-    @commands.command(description='This command might get you banned')
+    @commands.command(description='Аккуратней, за это вас могут забанить!')
     async def annoy(self, ctx, member: discord.Member=None, number: int=5):
         """ Usage: annoy @b1nzy#1337 50
         NOTICE: If you get banned, don't come back crying! """
@@ -359,7 +359,7 @@ class Misc:
                 await ctx.send(member.mention)
                 await asyncio.sleep(8)
         else:
-            return await ctx.send(f"{ctx.author.mention}, I don't know how to use commands. Help!")
+            return await ctx.send(f"{ctx.author.mention}, я не знаю как пользоваться командой. Помогите!")
 
     @commands.command()
     async def tinyurl(self, ctx, *, link: str):
@@ -368,8 +368,8 @@ class Misc:
         async with ctx.session.get(url) as resp:
             new = await resp.text()
         emb = discord.Embed(colour=await ctx.get_dominant_color(ctx.author.avatar_url))
-        emb.add_field(name="Original Link", value=link, inline=False)
-        emb.add_field(name="Shortened Link", value=new, inline=False)
+        emb.add_field(name="Оригинальная ссылка", value=link, inline=False)
+        emb.add_field(name="Короткая ссылка", value=new, inline=False)
         await ctx.send(embed=emb)
 
     @commands.command(aliases=['calc', 'maths'])
@@ -384,7 +384,7 @@ class Misc:
 
         if formula == None:
             # How can it calculate an empty message? Reee!
-            msg = f'\u200BUsage: `{ctx.prefix}{ctx.invoked_with} [any maths formula]`'
+            msg = f'\u200BИспользование: `{ctx.prefix}{ctx.invoked_with} [любая математическая формула]`'
             e = discord.Embed()
             e.color = await ctx.get_dominant_color(user.avatar_url)
             e.description = f'{msg}'
@@ -395,16 +395,16 @@ class Misc:
             answer=self.nsp.eval(formula)
         except:
             # If there's a problem in the input, show examples
-            msg = f'\N{THINKING FACE} wrong {formula} input.\nTry any of these:'
+            msg = f'\N{THINKING FACE} Неправильная формула `{formula}`.\nПопробуйте одну из этих:'
             e = discord.Embed()
             e.color = await ctx.get_dominant_color(user.avatar_url)
             e.description = f'\u200B{msg}'
-            e.add_field(name='multiplication', value="`num` * `num`", inline=True)
-            e.add_field(name='division', value="`num` / `num`", inline=True)
-            e.add_field(name='addition', value="`num` + `num`", inline=True)
-            e.add_field(name='rest', value="`num` - `num`", inline=True)
-            e.add_field(name='exponential', value="`num` ^ `num`")
-            e.add_field(name='integer', 
+            e.add_field(name='умножение', value="`num` * `num`", inline=True)
+            e.add_field(name='деление', value="`num` / `num`", inline=True)
+            e.add_field(name='прибавление', value="`num` + `num`", inline=True)
+            e.add_field(name='отнимание', value="`num` - `num`", inline=True)
+            e.add_field(name='возведение в степень', value="`num` ^ `num`")
+            e.add_field(name='...', 
                         value="[`num` + `num` | `num` - `num`] `num` 0 `num`..`num` 9 `num` +")
             await ctx.send(embed=e, delete_after=60)
             return
@@ -412,8 +412,8 @@ class Misc:
         # Correct input prints correct answer
         e = discord.Embed()
         e.color = await ctx.get_dominant_color(user.avatar_url)
-        e.add_field(name='Input:', value=f'```{formula}```', inline=True)
-        e.add_field(name='Result:', value=f'```{round(answer, 2)}```', inline=True)
+        e.add_field(name='Ввод:', value=f'```{formula}```', inline=True)
+        e.add_field(name='Результат:', value=f'```{round(answer, 2)}```', inline=True)
         await ctx.send(embed=e)
 
     @commands.command()
@@ -423,9 +423,9 @@ class Misc:
         result = solve(eq)
         em = discord.Embed()
         em.color = discord.Color.green()
-        em.title = 'Equation'
+        em.title = 'Уравнение'
         em.description = f'```py\n{equation} = 0```'
-        em.add_field(name='Result', value=f'```py\n{result}```')
+        em.add_field(name='Результат', value=f'```py\n{result}```')
         await ctx.send(embed=em)
 
     def check_emojis(self, bot_emojis, emoji):
@@ -452,7 +452,7 @@ class Misc:
             else:
                 emo = discord.utils.find(lambda e: emoji[0] in e.name.lower(), ctx.bot.emojis)
             if emo == None:
-                em = discord.Embed(title="Send Emoji", description="Could not find emoji.")
+                em = discord.Embed(title="Отправка смайликов", description="Не удалось найти смайлик.")
                 em.color = await ctx.get_dominant_color(ctx.author.avatar_url)
                 await ctx.send(embed=em)
                 return
@@ -468,7 +468,7 @@ class Misc:
         '''Copy an emoji from another server to your own'''
         if len(ctx.message.guild.emojis) == 50:
             await ctx.message.delete()
-            await ctx.send('Your Server has already hit the 50 Emoji Limit!')
+            await ctx.send('Лимит смайликов в вашем сервере исчерпан!')
             return
         emo_check = self.check_emojis(ctx.bot.emojis, emoji.split(":"))
         if emo_check[0]:
@@ -478,11 +478,11 @@ class Misc:
         em = discord.Embed()
         em.color = await ctx.get_dominant_color(ctx.author.avatar_url)
         if emo == None:
-            em.title = 'Add Emoji'
-            em.description = 'Could not find emoji.'
+            em.title = 'Добавление смайлика'
+            em.description = 'Невозможно найти смайлик.'
             await ctx.send(embed=em)
             return
-        em.title = f'Added Emoji: {emo.name}'
+        em.title = f'Добавлен смайлик: {emo.name}'
         em.set_image(url='attachment://emoji.png')
         async with ctx.session.get(emo.url) as resp:
             image = await resp.read()
@@ -529,22 +529,22 @@ class Misc:
         try:
             term = await client.get_term(search_terms)
         except LookupError:
-            emb.title = "Search term not found."
+            emb.title = "Ничего не найдено."
             return await ctx.send(embed=emb)
         emb.color = await ctx.get_dominant_color(url=ctx.message.author.avatar_url)
         definition = term.definitions[definition_number]
         emb.title = f"{definition.word}  ({definition_number+1}/{len(term.definitions)})"
         emb.description = definition.definition
         emb.url = definition.permalink
-        emb.add_field(name='Example', value=definition.example)
-        emb.add_field(name='Votes', value=f'{definition.upvotes}👍    {definition.downvotes}👎')
-        emb.set_footer(text=f"Definition written by {definition.author}", icon_url="http://urbandictionary.com/favicon.ico")
+        emb.add_field(name='Пример', value=definition.example)
+        emb.add_field(name='Голоса', value=f'{definition.upvotes}👍    {definition.downvotes}👎')
+        emb.set_footer(text=f"Обьяснение написано {definition.author}", icon_url="http://urbandictionary.com/favicon.ico")
         await ctx.send(embed=emb)
 
     @commands.group(invoke_without_command=True)
     async def lenny(self, ctx):
         """Lenny and tableflip group commands"""
-        msg = 'Available: `{}lenny face`, `{}lenny shrug`, `{}lenny tableflip`, `{}lenny unflip`'
+        msg = 'Доступные: `{}lenny face`, `{}lenny shrug`, `{}lenny tableflip`, `{}lenny unflip`'
         await ctx.send(msg.format(ctx.prefix))
 
     @lenny.command()
@@ -575,9 +575,9 @@ class Misc:
         author = ctx.message.author
         emb = discord.Embed()
         emb.color = await ctx.get_dominant_color(url=author.avatar_url)
-        emb.set_author(name='\N{WHITE QUESTION MARK ORNAMENT} Your question:', icon_url=author.avatar_url)
+        emb.set_author(name='\N{WHITE QUESTION MARK ORNAMENT} Ваш вопрос:', icon_url=author.avatar_url)
         emb.description = question
-        emb.add_field(name='\N{BILLIARDS} Your answer:', value=random.choice(choices), inline=True)
+        emb.add_field(name='\N{BILLIARDS} Ваш ответ:', value=random.choice(choices), inline=True)
         await ctx.send(embed=emb)
     
     @commands.command()
@@ -586,7 +586,7 @@ class Misc:
         async with ctx.session.get(f"http://artii.herokuapp.com/make?text={urllib.parse.quote_plus(text)}") as f:
             message = await f.text()
         if len('```' + message + '```') > 2000:
-            await ctx.send('Your ASCII is too long!')
+            await ctx.send('Ваш ASCII слишком длинный!')
             return
         await ctx.send('```' + message + '```')
 
@@ -607,7 +607,7 @@ class Misc:
             if guild.me.nick != None:
                 message += f'{guild.name} | {guild.me.nick}\n'
 
-        await ctx.send(embed=discord.Embed(title=f'Servers I Have Nicknames In', description = message, color=await ctx.get_dominant_color(url=ctx.message.author.avatar_url)))
+        await ctx.send(embed=discord.Embed(title=f'Мои ники в других серверах:', description = message, color=await ctx.get_dominant_color(url=ctx.message.author.avatar_url)))
 
     @commands.command()
     async def textmojify(self, ctx, *, msg):
@@ -647,7 +647,7 @@ class Misc:
             except Exception as e:
                 await ctx.send(f'```{e}```')
         else:
-            await ctx.send('Write something, reee!', delete_after=3.0)
+            await ctx.send('Напишите что-нибудь, окда?', delete_after=3.0)
 
     @commands.command(aliases=['yt', 'vid', 'video'])
     async def youtube(self, ctx, *, search):
@@ -656,7 +656,7 @@ class Misc:
         response = requests.get(f"https://www.youtube.com/results?search_query={search}").text
         result = BeautifulSoup(response, "lxml")
         dir_address = f"{result.find_all(attrs={'class': 'yt-uix-tile-link'})[0].get('href')}"
-        output=f"**Top Result:**\nhttps://www.youtube.com{dir_address}"
+        output=f"**Топ результат:**\nhttps://www.youtube.com{dir_address}"
         try:
             await ctx.send(output)
             await ctx.message.delete()
