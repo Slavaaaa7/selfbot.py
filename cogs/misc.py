@@ -582,6 +582,7 @@ class Misc:
     
     @commands.command()
     async def ascii(self, ctx, *, text):
+    	await ctx.message.delete()
         async with ctx.session.get(f"http://artii.herokuapp.com/make?text={urllib.parse.quote_plus(text)}") as f:
             message = await f.text()
         if len('```' + message + '```') > 2000:
@@ -597,7 +598,7 @@ class Misc:
             if member.game != None:
                 if member.game.name == game:
                     message += str(member) + '\n'
-        await ctx.send(embed=discord.Embed(title=f'Список людей, играющих в {game}?', description = message, color=await ctx.get_dominant_color(url=ctx.message.author.avatar_url)))
+        await ctx.send(embed=discord.Embed(title=f'Список людей, играющих в {game}', description = message, color=await ctx.get_dominant_color(url=ctx.message.author.avatar_url)))
 
     @commands.command()
     async def nickscan(self, ctx):
