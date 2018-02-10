@@ -591,12 +591,13 @@ class Misc:
 
     @commands.command()
     async def whoisplaying(self, ctx, *, game):
+    	await ctx.message.delete()
         message = ''
         for member in ctx.guild.members:
             if member.game != None:
                 if member.game.name == game:
                     message += str(member) + '\n'
-        await ctx.send(embed=discord.Embed(title=f'Кто играет в ``{game}``?', description = message, color=await ctx.get_dominant_color(url=ctx.message.author.avatar_url)))
+        await ctx.send(embed=discord.Embed(title=f'Список людей, играющих в {game}?', description = message, color=await ctx.get_dominant_color(url=ctx.message.author.avatar_url)))
 
     @commands.command()
     async def nickscan(self, ctx):
