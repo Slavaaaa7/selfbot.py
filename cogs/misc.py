@@ -272,7 +272,7 @@ class Misc:
         await ctx.send(embed=em)
 
     @commands.command()
-    async def blue(self, ctx, *, message):
+    async def blue_color(self, ctx, *, message):
         await ctx.message.delete()
         em = discord.Embed(color=2850770)
         em.description = '```markdown\n#'
